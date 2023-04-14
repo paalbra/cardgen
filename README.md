@@ -11,3 +11,5 @@ It depends on [PIL/Pillow](https://pypi.org/project/Pillow/).
 ```
 python cardgen.py -c "white" -h1 "Top text" -h2 "Middle text" -t "Main text of card. \\n \\n Newlines are possible if '\\n' is a word (spaces on both sides)." -s "5/7"
 ```
+
+![Example card](example.jpg "Example card")
