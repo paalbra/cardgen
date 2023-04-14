@@ -92,6 +92,7 @@ class Card():
         return xy
 
     def save(self, file_path):
+        logging.info("Saving card to: %s", os.path.abspath(file_path))
         self.im.save(file_path)
 
     def draw_frame(self):
