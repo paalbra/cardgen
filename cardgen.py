@@ -100,20 +100,27 @@ class Card():
         paste_noisy_rectangle(self.im, self.coordinates2xy(coordinates), self.colors["second"], self.colors["main"], pixel_size=6, blur_radius=2)
 
     def draw_content(self, image_path=None, head1=None, head2=None, text=None, stats=None):
+
+        large_image = not text
+
         # Image
-        coordinates = [2, 4, -2, 23]
+        if large_image:
+            coordinates = [2, 4, -2, -6]
+        else:
+            coordinates = [2, 4, -2, 23]
         if image_path:
             paste_image(self.im, self.coordinates2xy(coordinates), image_path)
         else:
             paste_noisy_rectangle(self.im, self.coordinates2xy(coordinates), self.colors["second"], self.colors["main"], pixel_size=30)
         draw_box(self.draw, self.coordinates2xy(coordinates), fill=None, outline=self.colors["main"], width=8)
 
-        # Bottom box
-        coordinates = [2, 25, -2, -2]
-        draw_box(self.draw, self.coordinates2xy(coordinates), fill=self.colors["card"], outline=self.colors["main"], width=8)
-        if text:
-            xy = self.coordinates2xy(coordinates)
-            write_text(self.draw, xy, text, self.medium_font)
+        if not large_image:
+            # Bottom box
+            coordinates = [2, 25, -2, -2]
+            draw_box(self.draw, self.coordinates2xy(coordinates), fill=self.colors["card"], outline=self.colors["main"], width=8)
+            if text:
+                xy = self.coordinates2xy(coordinates)
+                write_text(self.draw, xy, text, self.medium_font)
 
         # Title bar
         coordinates = [2, 2, -2, 4]
@@ -122,7 +129,10 @@ class Card():
             draw_center_text(self.draw, self.coordinates2xy(coordinates), head1, font=self.big_font)
 
         # Info bar
-        coordinates = [2, 23, -2, 25]
+        if large_image:
+            coordinates = [2, -6, -2, -4]
+        else:
+            coordinates = [2, 23, -2, 25]
         draw_box(self.draw, self.coordinates2xy(coordinates, x_grow=0.5), round=True, fill=self.colors["card"], outline=self.colors["main"], width=8)
         if head2:
             draw_center_text(self.draw, self.coordinates2xy(coordinates), head2, font=self.big_font)
